@@ -1,14 +1,12 @@
-ESXi Auto Shutdown Script v1.0
-==============================
+ESXi Auto Maintenance Mode Script v1.0
+======================================
 
-This script can be used to help shut down virtual machines, for example, in the case of a power outage.
+This script can be used to help gracefully shut down virtual machines and enter your host into maintenance mode, for example, in the case of a patch update.
 
-Deploy the two scripts on an ESXi 5.1 (or greater) attached datastore.  Make sure they are executable (chmod +x) by the user who will be running the script.
+Deploy the scripts on an ESXi 5.1 (or greater) attached datastore.  Make sure they are executable (chmod +x) by the user who will be running the script.
 
-Get the VM IDs using vim-cmd vmsvc/getallvms and customize the esxidown.sh script.
+Get the VM IDs using vim-cmd vmsvc/getallvms and customize the vm_maint.sh script.
 
-By default, the script tries to shut down each guest VM and waits 5 times for a duration of 60 seconds each time for the VM to shut down.  These settings are customizable in the script.
+By default, the script will shut down each guest VM gracefully. If it cannot it will loop indefinitely. You MUST have VMware tools installed on each of your vm's.
 
-If a guest VM doesn't shut down cleanly, it is forcefully powered off.  You could change this, for example, and make it suspend instead of a forceful shutdown (vmsvc/power.suspend) - it's up to you.
-
-The script can be run via SSH, and the virtual machines you specify (as well as the virtual host) will be shutdown using best effort.
+The script can be run via SSH.
